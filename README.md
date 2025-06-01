@@ -44,12 +44,6 @@ TradingJournalApp/
 └── MainPage.xaml          # Navigační taby
 ```
 
-## 📸 Ukázky
-
-| 📓 Journal Tab | 📈 Analytics Tab |
-|----------------|------------------|
-| ![journal](screenshots/journal.png) | ![analytics](screenshots/analytics.png) |
-
 ## 🛠 TODO
 
 - Export do CSV
@@ -60,7 +54,3 @@ TradingJournalApp/
 
 Tomáš Klepač  
 Fakulta aplikovaných věd, Západočeská univerzita v Plzni
-
----
-
-> "Your trading is only as good as your journaling."
