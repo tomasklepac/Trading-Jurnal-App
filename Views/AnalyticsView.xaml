@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TradingJournalApp.ViewModels"
+             x:Class="TradingJournalApp.Views.AnalyticsView"
+             x:DataType="viewmodels:AnalyticsViewModel"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+
+            <!-- Title -->
+            <Label Text="Performance Stats"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+            
+            
+            <!-- Date range selection -->
+            <HorizontalStackLayout Spacing="8"
+                                   HorizontalOptions="Center"
+                                   Margin="0,0,0,10">
+
+                <Button Text="This Week"
+                        Command="{Binding SelectThisWeekCommand}"
+                        BackgroundColor="{Binding SelectedRangeType, Converter={StaticResource RangeToColorConverter}, ConverterParameter=ThisWeek}"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+
+                <Button Text="This Month"
+                        Command="{Binding SelectThisMonthCommand}"
+                        BackgroundColor="{Binding SelectedRangeType, Converter={StaticResource RangeToColorConverter}, ConverterParameter=ThisMonth}"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+
+                <Button Text="This Year"
+                        Command="{Binding SelectThisYearCommand}"
+                        BackgroundColor="{Binding SelectedRangeType, Converter={StaticResource RangeToColorConverter}, ConverterParameter=ThisYear}"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+            </HorizontalStackLayout>
+
+
+            <HorizontalStackLayout Spacing="8"
+                                   HorizontalOptions="Center"
+                                   Margin="0,-20,0,0">
+                <Button Text="All"
+                        Command="{Binding SelectAllCommand}"
+                        BackgroundColor="{Binding SelectedRangeType, Converter={StaticResource RangeToColorConverter}, ConverterParameter=All}"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+
+                <Button Text="Custom"
+                        Command="{Binding SelectCustomCommand}"
+                        BackgroundColor="{Binding SelectedRangeType, Converter={StaticResource RangeToColorConverter}, ConverterParameter=Custom}"
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding ActiveRangeText}"
+                   FontSize="14"
+                   TextColor="#AAAAAA"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10" />
+
+            <!-- Total Trades -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Total Trades"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+
+                <Label Text="{Binding TradeCount}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <!-- Win Rate -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Win Rate"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding WinRate, StringFormat='{0:F0}%'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <!-- Avg Win -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Avg Winning Trade"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding AvgWin, StringFormat='{0:F0} USD'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="LimeGreen"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <!-- Avg Loss -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Avg Losing Trade"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding AvgLoss, StringFormat='{0:F0} USD'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Red"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <!-- Total PnL -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Total PnL"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding TotalPnL, StringFormat='{0:F0} USD'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{Binding TotalPnLColor}"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <!-- Long vs Short -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Longs"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding LongRatio, StringFormat='{0:F0}%'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Shorts"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#AAAAAA" />
+                
+                <Label Text="{Binding ShortRatio, StringFormat='{0:F0}%'}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       Grid.Column="1" />
+            </Grid>
+
+            <lvc:CartesianChart HeightRequest="200"
+                                Series="{Binding DailyPnLSeries}"
+                                XAxes="{Binding DailyPnLAxisX}"
+                                YAxes="{Binding DailyPnLAxisY}" />
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentView>

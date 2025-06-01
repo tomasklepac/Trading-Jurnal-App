@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:TradingJournalApp.Views"
+             xmlns:viewmodels="clr-namespace:TradingJournalApp.ViewModels"
+             x:Class="TradingJournalApp.Views.MainPage"
+             x:DataType="viewmodels:MainViewModel"
+             BackgroundColor="#0D0D0D"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+
+        <!-- Navigation panel -->
+        <Border StrokeShape="RoundRectangle 10" Margin="-4,-4,-4,10">
+            <Grid Padding="10" BackgroundColor="#0D0D0D" HeightRequest="60"
+                  HorizontalOptions="Fill" VerticalOptions="End">
+                <Grid ColumnDefinitions="Auto,Auto,Auto"
+                      HorizontalOptions="Center">
+
+                    <Label Text="Journal"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{Binding IsJournalTab, Converter={StaticResource BoolToColorConverter}}"
+                           Grid.Column="0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectJournalCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label Text="  |  " FontSize="22" TextColor="White" Grid.Column="1" />
+
+                    <Label Text="Analytics"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="{Binding IsAnalyticsTab, Converter={StaticResource BoolToColorConverter}}"
+                           Grid.Column="2">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SelectAnalyticsCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Current tab content -->
+        <ContentView Grid.Row="1">
+            <ContentView.Triggers>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding IsJournalTab}"
+                             Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <views:JournalView />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger TargetType="ContentView"
+                             Binding="{Binding IsAnalyticsTab}"
+                             Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <views:AnalyticsView />
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </ContentView.Triggers>
+        </ContentView>
+
+    </Grid>
+</ContentPage>

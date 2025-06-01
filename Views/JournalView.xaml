@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TradingJournalApp.Views.JournalView"
+             xmlns:viewmodels="clr-namespace:TradingJournalApp.ViewModels"
+             xmlns:models="clr-namespace:TradingJournalApp.Models"
+             x:DataType="viewmodels:JournalViewModel">
+
+    <Grid RowDefinitions="*,Auto" Padding="-4">
+
+        <!-- Scrollable content: days -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout>
+
+                <!-- Days -->
+                <CollectionView ItemsSource="{Binding TradeDays}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:TradeDay">
+                            <Border BackgroundColor="#0D0D0D"
+                                    Stroke="{Binding PnLColor}"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="10"
+                                    Margin="2,4">
+
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="10">
+
+                                    <!-- Date and trades -->
+                                    <Label Text="{Binding Date}"
+                                           FontSize="17"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           Grid.Row="0"
+                                           Grid.Column="0"/>
+
+                                    <Label Text="Trades"
+                                           FontSize="16"
+                                           TextColor="White"
+                                           HorizontalOptions="End"
+                                           Grid.Row="0"
+                                           Grid.Column="1"/>
+
+                                    <Label Text="{Binding TradesClosed}"
+                                           FontSize="17"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="End"
+                                           Grid.Row="1"
+                                           Grid.Column="1"/>
+
+                                    <!-- Total PnL label -->
+                                    <Label Text="Total PnL"
+                                           FontSize="15"
+                                           TextColor="#B0B0B0"
+                                           Grid.Row="1"
+                                           Grid.Column="0" />
+
+                                    <!-- PnL value -->
+                                    <Label Text="{Binding PnL, StringFormat='{0:F0} USD'}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="{Binding PnLColor}"
+                                           Grid.Row="2"
+                                           Grid.Column="0"/>
+
+                                    <!-- Traded: xxx -->
+                                    <Label Text="{Binding Instruments, StringFormat='Traded: {0}'}"
+                                           FontSize="15"
+                                           TextColor="#AAAAAA"
+                                           Grid.Row="3"
+                                           Grid.Column="0"/>
+
+                                    <!-- Button Trades -->
+                                    <Button Text="Trades"
+                                            BackgroundColor="#00FF99"
+                                            TextColor="Black"
+                                            CornerRadius="10"
+                                            FontAttributes="Bold"
+                                            Clicked="OnTradesClicked"
+                                            HeightRequest="38"
+                                            WidthRequest="100"
+                                            FontSize="15"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="End"
+                                            Grid.Row="3"
+                                            Grid.Column="1"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Fixed button: Add Trade -->
+        <Button Text="+ Add Trade"
+                FontSize="20"
+                Grid.Row="1"
+                Clicked="OnGlobalAddTradeClicked"
+                HorizontalOptions="Center"
+                Margin="0,5"
+                WidthRequest="300"
+                BackgroundColor="#00FF99"
+                TextColor="Black"
+                FontAttributes="Bold"
+                CornerRadius="10"/>
+    </Grid>
+</ContentView>
